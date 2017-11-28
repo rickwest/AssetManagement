@@ -59,6 +59,19 @@
 <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 <script src="{{ asset('assets/js/light-bootstrap-dashboard.js?v=1.4.0') }}"></script>
 
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+    <script type="text/javascript">
+        $.notify({
+            message: '{{ message }}'
+        },{
+            type: '{{ label }}'
+
+        });
+    </script>
+    {% endfor %}
+{% endfor %}
+
 {% block javascripts %}{% endblock %}
 
 </html>

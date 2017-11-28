@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Edit Asset</h4>
+                    <p class="category">Editing asset: {{ asset.id }}</p>
+                </div>
+                <div class="content">
+
+
+                    {% form_theme edit_form 'bootstrap_3_layout.html.twig' %}
+                    {{ form_start(edit_form) }}
+                    {{ form_widget(edit_form) }}
+                    <div class="footer">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                        {{ form_end(edit_form) }}
+                        <a href="{{ path('asset_index') }}" class="btn btn-primary">Back to the list</a>
+                        <a href="{{ url('asset_delete', { 'id': asset.id }) }}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

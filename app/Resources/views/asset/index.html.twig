@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Assets List</h4>
+                    <p class="category">Company Assets</p>
+                </div>
+                <div class="content table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Shortcode</th>
+                            <th>Name</th>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>Location</th>
+                            <th>Category</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for asset in assets %}
+                            <tr>
+                                <td><a href="{{ path('asset_show', { 'id': asset.id }) }}">{{ asset.id }}</a></td>
+                                <td>{{ asset.shortCode }}</td>
+                                <td>{{ asset.name }}</td>
+                                <td>{{ asset.make }}</td>
+                                <td>{{ asset.model }}</td>
+                                <td>{{ asset.location }}</td>
+                                <td>{{ asset.category }}</td>
+                                <td>
+                                    <a href="{{ path('asset_show', { 'id': asset.id }) }}" class="btn btn-info">View</a>
+                                    <a href="{{ path('asset_edit', { 'id': asset.id }) }}" class="btn btn-warning">Edit</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="footer">
+                        <a href="{{ path('asset_new') }}" class="btn btn-fill btn-success">Create Asset</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
