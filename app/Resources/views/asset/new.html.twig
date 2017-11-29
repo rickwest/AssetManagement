@@ -12,9 +12,50 @@
                 <div class="content">
                     {% form_theme form 'bootstrap_3_layout.html.twig' %}
                     {{ form_start(form) }}
-                    {{ form_widget(form) }}
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ form_row(form.shortCode) }}
+                        </div>
+                        <div class="col-md-8">
+                            {{ form_row(form.name) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row((form.make)) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.model) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(form.serial) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.location) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.category) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(form.specification) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(form.notes) }}
+                        </div>
+                    </div>
                     <div class="footer">
-                    <input type="submit" value="Create" class="btn btn-success"/>
+                    <input type="submit" value="Create" class="btn btn-success btn-fill"/>
                     {{ form_end(form) }}
                     <a href="{{ path('asset_index') }}" class="btn btn-primary">Back to the list</a>
                     </div>

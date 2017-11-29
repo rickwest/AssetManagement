@@ -2,7 +2,11 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Helper\ChoiceHelper;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,15 +18,19 @@ class AssetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('shortCode')
-            ->add('name')
-            ->add('make')
-            ->add('model')
-            ->add('serial')
-            ->add('location')
-            ->add('category')
-            ->add('specification')
-            ->add('notes')
+            ->add('shortCode', TextType::class)
+            ->add('name', TextType::class)
+            ->add('make', TextType::class)
+            ->add('model', TextType::class)
+            ->add('serial', TextType::class)
+            ->add('location', ChoiceType::class, [
+                'choices' => ChoiceHelper::getLocationChoices()
+            ])
+            ->add('category', ChoiceType::class, [
+                'choices' => ChoiceHelper::getCategoryChoices()
+            ])
+            ->add('specification', TextareaType::class)
+            ->add('notes', TextareaType::class)
         ;
     }
     

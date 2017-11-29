@@ -10,11 +10,50 @@
                     <p class="category">Editing asset: {{ asset.id }}</p>
                 </div>
                 <div class="content">
-
-
                     {% form_theme edit_form 'bootstrap_3_layout.html.twig' %}
                     {{ form_start(edit_form) }}
-                    {{ form_widget(edit_form) }}
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.shortCode) }}
+                        </div>
+                        <div class="col-md-8">
+                            {{ form_row(edit_form.name) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row((edit_form.make)) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(edit_form.model) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(edit_form.serial) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(edit_form.location) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(edit_form.category) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(edit_form.specification) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(edit_form.notes) }}
+                        </div>
+                    </div>
                     <div class="footer">
                         <input type="submit" value="Save" class="btn btn-success" />
                         {{ form_end(edit_form) }}
