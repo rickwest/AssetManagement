@@ -47,7 +47,7 @@ class AssetController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($asset);
             $em->flush();
-
+            $this->addFlash('success', 'Asset created successfully.');
             return $this->redirectToRoute('asset_show', array('id' => $asset->getId()));
         }
 
@@ -83,7 +83,7 @@ class AssetController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Your changes were saved successfully!');
+            $this->addFlash('success', 'Your changes were saved successfully.');
             return $this->redirectToRoute('asset_edit', array('id' => $asset->getId()));
         }
 
@@ -99,6 +99,7 @@ class AssetController extends Controller
      * @Route("/{id}/delete", name="asset_delete")
      */
     public function deleteAction(Asset $asset) {
+        $this->addFlash('warning', 'Asset '. $asset->getId() . ': ' . $asset->getName() . ' has been deleted');
         $em = $this->getDoctrine()->getManager();
         $em->remove($asset);
         $em->flush();
