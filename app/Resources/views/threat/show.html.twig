@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Threat {{ threat.id }}</h4>
+                        <p class="category">Company Threats</p>
+                    </div>
+                    <div class="content">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ threat.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Threat</th>
+                                <td>{{ threat.threat }}</td>
+                            </tr>
+                            <tr>
+                                <th>Vulnerability</th>
+                                <td>{{ threat.vulnerability }}</td>
+                            </tr>
+                            <tr>
+                                <th>Likelihood</th>
+                                <td>{{ threat.likelihood }}</td>
+                            </tr>
+                            <tr>
+                                <th>Value</th>
+                                <td>{{ threat.value }}</td>
+                            </tr>
+                            <tr>
+                                <th>Mitigation</th>
+                                <td>{{ threat.mitigation }}</td>
+                            </tr>
+                            <tr>
+                                <th>Uncertainty</th>
+                                <td>{{ threat.uncertainty }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+
+                        <div class="footer">
+                            <a href="{{ path('threat_index') }}" class="btn btn-primary">Back to the list</a>
+                            <a href="{{ path('threat_edit', { 'id': threat.id }) }}" class="btn btn-info">Edit</a>
+                            <a href="{{ url('threat_delete', {'id': threat.id }) }}" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use AppBundle\Helper\ChoiceHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,8 +30,14 @@ class AssetType extends AbstractType
             ->add('category', ChoiceType::class, [
                 'choices' => ChoiceHelper::getCategoryChoices()
             ])
+            ->add('classification', ChoiceType::class, [
+                'choices' => ChoiceHelper::getClassificationChoices()
+            ])
             ->add('specification', TextareaType::class)
             ->add('notes', TextareaType::class)
+            ->add('impactRevenue', NumberType::class)
+            ->add('impactProfitability', NumberType::class)
+            ->add('impactImage', NumberType::class)
         ;
     }
     

@@ -73,6 +73,13 @@ class Asset
     /**
      * @var string
      *
+     * @ORM\Column(name="classification", type="string", length=255)
+     */
+    private $classification;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="specification", type="string", length=255, nullable=true)
      */
     private $specification;
@@ -84,6 +91,33 @@ class Asset
      */
     private $notes;
 
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="impact_revenue", type="float")
+     */
+    private $impactRevenue;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="impact_profitability", type="float")
+     */
+    private $impactProfitability;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="impact_image", type="float")
+     */
+    private $impactImage;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="weighted_score", type="float")
+     */
+    private $weightedScore;
 
     /**
      * Get id
@@ -309,6 +343,86 @@ class Asset
     public function getNotes()
     {
         return $this->notes;
+    }
+
+    /**
+     * @return float
+     */
+    public function getImpactRevenue() {
+        return $this->impactRevenue;
+    }
+
+    /**
+     * @param float $impactRevenue
+     * @return Asset
+     */
+    public function setImpactRevenue($impactRevenue) {
+        $this->impactRevenue = $impactRevenue;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getImpactProfitability() {
+        return $this->impactProfitability;
+    }
+
+    /**
+     * @param float $impactProfitability
+     * @return Asset
+     */
+    public function setImpactProfitability($impactProfitability){
+        $this->impactProfitability = $impactProfitability;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getImpactImage() {
+        return $this->impactImage;
+    }
+
+    /**
+     * @param float $impactImage
+     * @return Asset
+     */
+    public function setImpactImage($impactImage) {
+        $this->impactImage = $impactImage;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getWeightedScore() {
+        return $this->weightedScore;
+    }
+
+    /**
+     * @param float $weightedScore
+     * @return Asset
+     */
+    public function setWeightedScore($weightedScore) {
+        $this->weightedScore = $weightedScore;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClassification() {
+        return $this->classification;
+    }
+
+    /**
+     * @param string $classification
+     * @return Asset
+     */
+    public function setClassification($classification) {
+        $this->classification = $classification;
+        return $this;
     }
 }
 

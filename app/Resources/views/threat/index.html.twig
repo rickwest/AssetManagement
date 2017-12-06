@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Threats List</h4>
+                        <p class="category">Company Threats</p>
+                    </div>
+                    <div class="content table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Threat</th>
+                                <th>Vulnerability</th>
+                                <th>Likelihood</th>
+                                <th>Value</th>
+                                <th>Mitigation</th>
+                                <th>Uncertainty</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for threat in threats %}
+                                <tr>
+                                    <td><a href="{{ path('threat_show', { 'id': threat.id }) }}">{{ threat.id }}</a></td>
+                                    <td>{{ threat.threat }}</td>
+                                    <td>{{ threat.vulnerability }}</td>
+                                    <td>{{ threat.likelihood }}</td>
+                                    <td>{{ threat.value }}</td>
+                                    <td>{{ threat.mitigation }}</td>
+                                    <td>{{ threat.uncertainty }}</td>
+                                    <td>
+                                        <ul>
+                                            <li>
+                                                <a href="{{ path('threat_show', { 'id': threat.id }) }}">show</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('threat_edit', { 'id': threat.id }) }}">edit</a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="footer">
+                            <a href="{{ path('threat_new') }}" class="btn btn-fill btn-success">Create Threat</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

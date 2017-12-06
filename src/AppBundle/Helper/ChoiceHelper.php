@@ -27,4 +27,13 @@ class ChoiceHelper {
 
         ];
     }
+
+    public static function getClassificationChoices() {
+        return [
+            'Public Data' => 'Public Data',
+            'Private Data' => 'Private Data',
+            'Restricted Data' => 'Restricted Data',
+            'Secret Data' => 'Secret Data'
+        ];
+    }
 }
