@@ -44,7 +44,7 @@
                         </tbody>
                     </table>
                     <div class="footer">
-                        {% if is_granted("ROLE") %}
+                        {% if is_granted("ROLE_ADMIN") %}
                             <a href="{{ path('asset_new') }}" class="btn btn-fill btn-success">Create Asset</a>
                         {% endif %}
                     </div>
