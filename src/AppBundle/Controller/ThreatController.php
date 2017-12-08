@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Asset;
 use AppBundle\Entity\Threat;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -20,6 +21,7 @@ class ThreatController extends Controller
      * Lists all threat entities.
      *
      * @Route("/", name="threat_index")
+     * @Security("has_role('ROLE_USER')")
      * @Method("GET")
      */
     public function indexAction()
@@ -38,6 +40,7 @@ class ThreatController extends Controller
      *
      * @Route("/new/{id}", name="threat_new")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction(Request $request, Asset $asset)
     {
@@ -74,6 +77,7 @@ class ThreatController extends Controller
      *
      * @Route("/{id}", name="threat_show")
      * @Method("GET")
+     * @Security("has_role('ROLE_USER')")
      */
     public function showAction(Threat $threat)
     {
@@ -87,6 +91,8 @@ class ThreatController extends Controller
      *
      * @Route("/{id}/edit", name="threat_edit")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_ADMIN')")
+
      */
     public function editAction(Request $request, Threat $threat)
     {
@@ -107,7 +113,7 @@ class ThreatController extends Controller
 
     /**
      * Deletes a threat entity.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      * @Route("/delete/{id}", name="threat_delete")
      */
     public function deleteAction(Request $request, Threat $threat)
