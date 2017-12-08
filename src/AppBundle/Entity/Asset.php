@@ -81,14 +81,14 @@ class Asset
     /**
      * @var string
      *
-     * @ORM\Column(name="specification", type="string", length=255, nullable=true)
+     * @ORM\Column(name="specification", type="text", nullable=true)
      */
     private $specification;
 
     /**
-     * @var string
+     * @var strng
      *
-     * @ORM\Column(name="notes", type="string", length=255, nullable=true)
+     * @ORM\Column(name="notes", type="text", nullable=true)
      */
     private $notes;
 
