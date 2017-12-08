@@ -73,5 +73,5 @@ fos_user:
     firewall_name: main
     user_class: AppBundle\Entity\User
     from_email:
-        address: "noreply@asset-register.herokuapp.com"
-        sender_name: "Asset Register%"
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"
