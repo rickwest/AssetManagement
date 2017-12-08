@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -118,6 +119,17 @@ class Asset
      * @ORM\Column(name="weighted_score", type="float")
      */
     private $weightedScore;
+    
+    /**
+     * One asset has many threats
+     * @ORM\OneToMany(targetEntity="Threat", mappedBy="asset")
+     */
+    private $threats;
+
+    public function __construct()
+    {
+        $this->threats = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -422,6 +434,24 @@ class Asset
      */
     public function setClassification($classification) {
         $this->classification = $classification;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getThreats()
+    {
+        return $this->threats;
+    }
+
+    /**
+     * @param mixed $threats
+     * @return Asset
+     */
+    public function setThreats($threats)
+    {
+        $this->threats = $threats;
         return $this;
     }
 }

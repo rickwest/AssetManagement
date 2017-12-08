@@ -35,9 +35,15 @@ class AssetType extends AbstractType
             ])
             ->add('specification', TextareaType::class)
             ->add('notes', TextareaType::class)
-            ->add('impactRevenue', NumberType::class)
-            ->add('impactProfitability', NumberType::class)
-            ->add('impactImage', NumberType::class)
+            ->add('impactRevenue', ChoiceType::class, [
+                'choices' => ChoiceHelper::getZeroToHundredChoices()
+            ])
+            ->add('impactProfitability', ChoiceType::class, [
+                'choices' => ChoiceHelper::getZeroToHundredChoices()
+            ])
+            ->add('impactImage', ChoiceType::class, [
+                'choices' => ChoiceHelper::getZeroToHundredChoices()
+            ])
         ;
     }
     

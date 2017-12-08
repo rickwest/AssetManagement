@@ -2,11 +2,11 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Asset;
 use AppBundle\Entity\Threat;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -26,7 +26,7 @@ class ThreatController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $threats = $em->getRepository('AppBundle:Threat')->findAll();
+        $threats = $em->getRepository('AppBundle:Threat')->findBy([], ['risk' => 'DESC']);
 
         return $this->render('threat/index.html.twig', array(
             'threats' => $threats,
@@ -36,21 +36,31 @@ class ThreatController extends Controller
     /**
      * Creates a new threat entity.
      *
-     * @Route("/new", name="threat_new")
+     * @Route("/new/{id}", name="threat_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, Asset $asset)
     {
         $threat = new Threat();
         $form = $this->createForm('AppBundle\Form\ThreatType', $threat);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var float $likelihoodValue */
+            $likelihoodValue = ($threat->getLikelihood() * $threat->getValue());
+            /** @var float $knownMitigation */
+            $knownMitigation = $threat->getMitigation() * $likelihoodValue;
+            /** @var float $uncertainty */
+            $uncertainty = $threat->getUncertainty() * $likelihoodValue;
+            $threat->setRisk($likelihoodValue - $knownMitigation + $uncertainty);
+            $threat->setAsset($asset);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($threat);
+            $em->persist($asset);
             $em->flush();
 
-            return $this->redirectToRoute('threat_show', array('id' => $threat->getId()));
+            return $this->redirectToRoute('asset_edit', array('id' => $asset->getId()));
         }
 
         return $this->render('threat/new.html.twig', array(
@@ -67,11 +77,8 @@ class ThreatController extends Controller
      */
     public function showAction(Threat $threat)
     {
-        $deleteForm = $this->createDeleteForm($threat);
-
         return $this->render('threat/show.html.twig', array(
             'threat' => $threat,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -83,7 +90,6 @@ class ThreatController extends Controller
      */
     public function editAction(Request $request, Threat $threat)
     {
-        $deleteForm = $this->createDeleteForm($threat);
         $editForm = $this->createForm('AppBundle\Form\ThreatType', $threat);
         $editForm->handleRequest($request);
 
@@ -96,39 +102,22 @@ class ThreatController extends Controller
         return $this->render('threat/edit.html.twig', array(
             'threat' => $threat,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
      * Deletes a threat entity.
      *
-     * @Route("/{id}", name="threat_delete")
-     * @Method("DELETE")
+     * @Route("/delete/{id}", name="threat_delete")
      */
     public function deleteAction(Request $request, Threat $threat)
     {
-        $form = $this->createDeleteForm($threat);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        {
             $em = $this->getDoctrine()->getManager();
             $em->remove($threat);
             $em->flush();
         }
 
-        return $this->redirectToRoute('threat_index');
-    }
-
-    /**
-     * @param Threat $threat The threat entity
-     * @return RedirectResponse
-     */
-    private function createDeleteForm(Threat $threat)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($threat);
-        $em->flush();
         return $this->redirectToRoute('threat_index');
     }
 }

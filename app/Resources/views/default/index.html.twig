@@ -6,15 +6,15 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="header">
-                    <h4 class="title">Statistics</h4>
+                    <h4 class="title">Total Assets</h4>
                     <p class="category">Number of Company Assets</p>
                 </div>
                 <div class="content">
-                    {# chart or stat here#}
+                    <h1>{{ totalAssets }}</h1>
                    <div class="footer">
-                       <div class="stats">
-                           <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
-                       </div>
+                       {#<div class="stats">#}
+                           {#<i class="fa fa-clock-o"></i> Campaign sent 2 days ago#}
+                       {#</div>#}
                    </div>
                 </div>
             </div>
@@ -22,15 +22,15 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="header">
-                    <h4 class="title">Statistics</h4>
-                    <p class="category">Number of Company Assets</p>
+                    <h4 class="title">Total Threats</h4>
+                    <p class="category">Number of threats identified</p>
                 </div>
                 <div class="content">
-                    {# chart or stat here#}
+                    <h1>{{ totalThreats }}</h1>
                     <div class="footer">
-                        <div class="stats">
-                            <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
-                        </div>
+                        {#<div class="stats">#}
+                            {#<i class="fa fa-clock-o"></i> Campaign sent 2 days ago#}
+                        {#</div>#}
                     </div>
                 </div>
             </div>
@@ -57,10 +57,96 @@
             <div class="card">
                 <div class="header">
                     <h4 class="title">Assets</h4>
-                    <p class="category">Company Assets</p>
+                    <p class="category">Top 10 Assets</p>
                 </div>
-                <div class="content">
+                <div class="content table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Shortcode</th>
+                            <th>Name</th>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>Category</th>
+                            <th>Weighted Score</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for asset in assets %}
+                            <tr>
+                                <td><a href="{{ path('asset_show', { 'id': asset.id }) }}">{{ asset.id }}</a></td>
+                                <td>{{ asset.shortCode }}</td>
+                                <td>{{ asset.name }}</td>
+                                <td>{{ asset.make }}</td>
+                                <td>{{ asset.model }}</td>
+                                <td>{{ asset.category }}</td>
+                                <td>{{ asset.weightedScore }}</td>
+                                <td>
+                                    <a href="{{ path('asset_show', { 'id': asset.id }) }}" class="btn btn-primary">View</a>
+                                    {% if is_granted("ROLE_ADMIN") %}
+                                        <a href="{{ path('asset_edit', { 'id': asset.id }) }}" class="btn btn-info">Edit</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                     <div class="footer">
+                        <a href="{{ path('asset_index') }}" class="btn btn-fill btn-primary">View All Assets</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Threats</h4>
+                    <p class="category">Top 10 Threats</p>
+                </div>
+                <div class="content table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Threat</th>
+                            <th>Vulnerability</th>
+                            <th>Likelihood</th>
+                            <th>Value</th>
+                            <th>Mitigation</th>
+                            <th>Uncertainty</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for threat in threats %}
+                            <tr>
+                                <td><a href="{{ path('threat_show', { 'id': threat.id }) }}">{{ threat.id }}</a></td>
+                                <td>{{ threat.threat }}</td>
+                                <td>{{ threat.vulnerability }}</td>
+                                <td>{{ threat.likelihood }}</td>
+                                <td>{{ threat.value }}</td>
+                                <td>{{ threat.mitigation }}</td>
+                                <td>{{ threat.uncertainty }}</td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="{{ path('threat_show', { 'id': threat.id }) }}">show</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('threat_edit', { 'id': threat.id }) }}">edit</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="footer">
+                        <a href="{{ path('threat_index') }}" class="btn btn-fill btn-primary">View All Threats</a>
                     </div>
                 </div>
             </div>

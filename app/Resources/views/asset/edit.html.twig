@@ -48,6 +48,9 @@
                         <div class="col-md-6">
                             {{ form_row(edit_form.category) }}
                         </div>
+                        <div class="col-md-6">
+                            {{ form_row(edit_form.classification) }}
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -61,23 +64,26 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <h4>Description</h4>
+                            <h4 class="title">Asset Importance</h4>
                         </div>
                     </div>
                     <div class="row">
-                        <h4>Importance</h4>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.impactRevenue) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.impactProfitability) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.impactImage) }}
+                        </div>
                     </div>
-                    {{ form_rest(edit_form) }}
-
-
-
-
-
                     <div class="footer">
                         <input type="submit" value="Save" class="btn btn-success" />
                         {{ form_end(edit_form) }}
                         <a href="{{ path('asset_index') }}" class="btn btn-primary">Back to the list</a>
                         <a href="{{ url('asset_delete', { 'id': asset.id }) }}" class="btn btn-danger">Delete</a>
+                        <a href="{{ url('threat_new', { 'id': asset.id }) }}" class="btn btn-warning">Add Threat</a>
                     </div>
                 </div>
             </div>

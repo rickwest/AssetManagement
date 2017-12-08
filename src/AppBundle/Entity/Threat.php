@@ -73,6 +73,12 @@ class Threat
      */
     private $risk;
 
+    /**
+     * Many Threats have one column
+     * @ORM\ManyToOne(targetEntity="Asset", inversedBy="threats")
+     * @ORM\JoinColumn(name="asset_id", referencedColumnName="id")
+     */
+    private $asset;
 
     /**
      * Get id
@@ -226,6 +232,42 @@ class Threat
     public function getUncertainty()
     {
         return $this->uncertainty;
+    }
+
+    /**
+     * @return float
+     */
+    public function getRisk()
+    {
+        return $this->risk;
+    }
+
+    /**
+     * @param float $risk
+     * @return Threat
+     */
+    public function setRisk($risk)
+    {
+        $this->risk = $risk;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAsset()
+    {
+        return $this->asset;
+    }
+
+    /**
+     * @param mixed $asset
+     * @return Threat
+     */
+    public function setAsset($asset)
+    {
+        $this->asset = $asset;
+        return $this;
     }
 }
 

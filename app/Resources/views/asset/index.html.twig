@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="header">
                     <h4 class="title">Assets List</h4>
-                    <p class="category">Company Assets</p>
+                    <p class="category">List of all company assets sorted by importance</p>
                 </div>
                 <div class="content table-responsive">
                     <table class="table table-hover table-striped">
@@ -18,8 +18,8 @@
                             <th>Name</th>
                             <th>Make</th>
                             <th>Model</th>
-                            <th>Location</th>
                             <th>Category</th>
+                            <th>Weighted Score</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -31,18 +31,22 @@
                                 <td>{{ asset.name }}</td>
                                 <td>{{ asset.make }}</td>
                                 <td>{{ asset.model }}</td>
-                                <td>{{ asset.location }}</td>
                                 <td>{{ asset.category }}</td>
+                                <td>{{ asset.weightedScore }}</td>
                                 <td>
                                     <a href="{{ path('asset_show', { 'id': asset.id }) }}" class="btn btn-primary">View</a>
-                                    <a href="{{ path('asset_edit', { 'id': asset.id }) }}" class="btn btn-info">Edit</a>
+                                    {% if is_granted("ROLE_ADMIN") %}
+                                        <a href="{{ path('asset_edit', { 'id': asset.id }) }}" class="btn btn-info">Edit</a>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
                     <div class="footer">
-                        <a href="{{ path('asset_new') }}" class="btn btn-fill btn-success">Create Asset</a>
+                        {% if is_granted("ROLE") %}
+                            <a href="{{ path('asset_new') }}" class="btn btn-fill btn-success">Create Asset</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

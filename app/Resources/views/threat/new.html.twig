@@ -1,16 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Threat creation</h1>
-
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('threat_index') }}">Back to the list</a>
-        </li>
-    </ul>
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Threat creation</h4>
+                        <p class="category">Create a new threat</p>
+                    </div>
+                    <div class="content">
+                        {% form_theme form 'bootstrap_3_layout.html.twig' %}
+                        {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                        <div class="footer">
+                            <input type="submit" value="Create" class="btn btn-success btn-fill"/>
+                            {{ form_end(form) }}
+                            <a href="{{ path('threat_index') }}">Back to the list</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+

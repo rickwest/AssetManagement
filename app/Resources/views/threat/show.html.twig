@@ -6,48 +6,62 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h4 class="title">Threat {{ threat.id }}</h4>
-                        <p class="category">Company Threats</p>
+                        <h4 class="title">Threat: {{ threat.id }}</h4>
+                        <p class="category">Threat Associated with asset: <a href="{{ url('asset_show', {'id': threat.asset.id}) }}">{{ threat.asset.name }}</a></p>
                     </div>
                     <div class="content">
-                        <table>
-                            <tbody>
-                            <tr>
-                                <th>Id</th>
-                                <td>{{ threat.id }}</td>
-                            </tr>
-                            <tr>
-                                <th>Threat</th>
-                                <td>{{ threat.threat }}</td>
-                            </tr>
-                            <tr>
-                                <th>Vulnerability</th>
-                                <td>{{ threat.vulnerability }}</td>
-                            </tr>
-                            <tr>
-                                <th>Likelihood</th>
-                                <td>{{ threat.likelihood }}</td>
-                            </tr>
-                            <tr>
-                                <th>Value</th>
-                                <td>{{ threat.value }}</td>
-                            </tr>
-                            <tr>
-                                <th>Mitigation</th>
-                                <td>{{ threat.mitigation }}</td>
-                            </tr>
-                            <tr>
-                                <th>Uncertainty</th>
-                                <td>{{ threat.uncertainty }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Threat</label>
+                                    <textarea class="form-control" readonly>{{ threat.threat }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Vulnerability</label>
+                                    <textarea class="form-control" readonly>{{ threat.vulnerability }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Likelihood</label>
+                                    <input type="text" class="form-control" value="{{ threat.likelihood * 100 }}%" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Value</label>
+                                    <input type="text" class="form-control" value="{{ threat.value }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Mitigation</label>
+                                    <input type="text" class="form-control" value="{{ threat.mitigation * 100 }}%" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Risk Value</label>
+                                    <input type="text" class="form-control" value="{{ threat.uncertainty }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Risk</label>
+                                    <input type="text" class="form-control" value="{{ threat.risk }}" readonly>
+                                </div>
+                            </div>
+                        </div>
                         <div class="footer">
                             <a href="{{ path('threat_index') }}" class="btn btn-primary">Back to the list</a>
-                            <a href="{{ path('threat_edit', { 'id': threat.id }) }}" class="btn btn-info">Edit</a>
-                            <a href="{{ url('threat_delete', {'id': threat.id }) }}" class="btn btn-danger">Delete</a>
                         </div>
                     </div>
                 </div>

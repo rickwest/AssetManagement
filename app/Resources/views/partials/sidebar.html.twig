@@ -1,21 +1,12 @@
-<div class="sidebar" data-color="" data-image="{{ asset('assets/img/anonymous1.jpg') }}">
-
-    <!--
-
-        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
-        Tip 2: you can also add an image using data-image tag
-
-    -->
-
+<div class="sidebar" data-color="" data-image="{{ asset('assets/img/anonymous.jpg') }}">
     <div class="sidebar-wrapper">
         <div class="logo">
             <a href="{{ url('index') }}" class="simple-text">
                 Asset Manager
             </a>
         </div>
-
         <ul class="nav">
-            <li class="active">
+            <li>
                 <a href="{{ url('index') }}">
                     <i class="pe-7s-graph"></i>
                     <p>Dashboard</p>
@@ -25,6 +16,12 @@
                 <a href="{{ url('asset_index') }}">
                     <i class="pe-7s-note2"></i>
                     <p>Assets</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ url('threat_index') }}">
+                    <i class="pe-7s-close-circle"></i>
+                    <p>Threats</p>
                 </a>
             </li>
         </ul>

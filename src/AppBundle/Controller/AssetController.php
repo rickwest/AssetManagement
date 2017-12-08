@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Asset;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -19,12 +20,12 @@ class AssetController extends Controller
      *
      * @Route("/", name="asset_index")
      * @Method("GET")
+     * @Security("has_role('ROLE_USER')")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $assets = $em->getRepository('AppBundle:Asset')->findAll();
+        $assets = $em->getRepository('AppBundle:Asset')->findBy([], ['weightedScore' => 'DESC']);
 
         return $this->render('asset/index.html.twig', array(
             'assets' => $assets,
@@ -36,6 +37,7 @@ class AssetController extends Controller
      *
      * @Route("/new", name="asset_new")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction(Request $request)
     {
@@ -44,6 +46,7 @@ class AssetController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $asset->setWeightedScore(($asset->getImpactRevenue() + $asset->getImpactProfitability() + $asset->getImpactImage()) / 3);
             $em = $this->getDoctrine()->getManager();
             $em->persist($asset);
             $em->flush();
@@ -62,6 +65,7 @@ class AssetController extends Controller
      *
      * @Route("/{id}", name="asset_show")
      * @Method("GET")
+     * @Security("has_role('ROLE_USER')")
      */
     public function showAction(Asset $asset)
     {
@@ -75,6 +79,7 @@ class AssetController extends Controller
      *
      * @Route("/{id}/edit", name="asset_edit")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editAction(Request $request, Asset $asset)
     {
@@ -97,6 +102,7 @@ class AssetController extends Controller
      * Deletes a asset entity.
      *
      * @Route("/{id}/delete", name="asset_delete")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Asset $asset) {
         $this->addFlash('warning', 'Asset '. $asset->getId() . ': ' . $asset->getName() . ' has been deleted');

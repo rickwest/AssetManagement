@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="header">
                         <h4 class="title">Threats List</h4>
-                        <p class="category">Company Threats</p>
+                        <p class="category">List of all threats by risk score</p>
                     </div>
                     <div class="content table-responsive">
                         <table class="table table-hover table-striped">
@@ -16,10 +16,8 @@
                                 <th>Id</th>
                                 <th>Threat</th>
                                 <th>Vulnerability</th>
-                                <th>Likelihood</th>
-                                <th>Value</th>
-                                <th>Mitigation</th>
-                                <th>Uncertainty</th>
+                                <th>Asset<th>
+                                <th>Risk</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -29,27 +27,15 @@
                                     <td><a href="{{ path('threat_show', { 'id': threat.id }) }}">{{ threat.id }}</a></td>
                                     <td>{{ threat.threat }}</td>
                                     <td>{{ threat.vulnerability }}</td>
-                                    <td>{{ threat.likelihood }}</td>
-                                    <td>{{ threat.value }}</td>
-                                    <td>{{ threat.mitigation }}</td>
-                                    <td>{{ threat.uncertainty }}</td>
+                                    <td><a href="{{ url('asset_show', {'id': threat.asset.id}) }}">{{ threat.asset.name }}</a></td>
+                                    <td>{{ threat.risk }}</td>
                                     <td>
-                                        <ul>
-                                            <li>
-                                                <a href="{{ path('threat_show', { 'id': threat.id }) }}">show</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ path('threat_edit', { 'id': threat.id }) }}">edit</a>
-                                            </li>
-                                        </ul>
+                                        <a href="{{ url('threat_show', { 'id': threat.id }) }}" class="btn btn-primary">View</a>
                                     </td>
                                 </tr>
                             {% endfor %}
                             </tbody>
                         </table>
-                        <div class="footer">
-                            <a href="{{ path('threat_new') }}" class="btn btn-fill btn-success">Create Threat</a>
-                        </div>
                     </div>
                 </div>
             </div>

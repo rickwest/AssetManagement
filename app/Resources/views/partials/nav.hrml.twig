@@ -19,11 +19,22 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#">
-                        <p>Log out</p>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <a>{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</a>
+                </li>
+                <li>
+                    <a href="{{ path('fos_user_profile_show') }}">
+                        Profile
                     </a>
                 </li>
-                <li class="separator hidden-lg"></li>
+                <li>
+                    <a href="{{ path('fos_user_security_logout') }}">
+                        {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                    </a>
+                    {% else %}
+                        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                    {% endif %}
+                </li>
             </ul>
         </div>
     </div>

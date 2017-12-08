@@ -1,67 +1,169 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="header">
-                    <h4 class="title">Asset {{ asset.id }}</h4>
-                    <p class="category">Company Assets</p>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Asset Details</h4>
+                        <p class="category">Details for {{ asset.name }}</p>
+                        {% if is_granted("ROLE_ADMIN") %}
+                            <a href="{{ url('asset_new') }}" class="btn btn-primary">Create</a>
+                        {% endif %}
+                        <a href="{{ url('asset_index') }}" class="btn btn-primary pull-right">Back to the list</a>
+                    </div>
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Short code</label>
+                                    <input type="text" class="form-control" value="{{ asset.shortcode }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label">Name</label>
+                                    <input type="text" class="form-control" value="{{ asset.shortcode }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Make</label>
+                                    <input type="text" class="form-control" value="{{ asset.make }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Model</label>
+                                    <input type="text" class="form-control" value="{{ asset.model }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Serial</label>
+                                    <input type="text" class="form-control" value="{{ asset.serial }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Location</label>
+                                    <input class="form-control" value="{{ asset.location }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Category</label>
+                                    <input class="form-control" value="{{ asset.category }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Classification</label>
+                                    <input class="form-control" value="{{ asset.classification }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Specification</label>
+                                    <textarea class="form-control" readonly>{{ asset.specification }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Notes</label>
+                                    <textarea class="form-control" readonly>{{ asset.notes }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="content">
-                    <table>
-                        <tbody>
-                        <tr>
-                            <th>Id</th>
-                            <td>{{ asset.id }}</td>
-                        </tr>
-                        <tr>
-                            <th>Shortcode</th>
-                            <td>{{ asset.shortCode }}</td>
-                        </tr>
-                        <tr>
-                            <th>Name</th>
-                            <td>{{ asset.name }}</td>
-                        </tr>
-                        <tr>
-                            <th>Make</th>
-                            <td>{{ asset.make }}</td>
-                        </tr>
-                        <tr>
-                            <th>Model</th>
-                            <td>{{ asset.model }}</td>
-                        </tr>
-                        <tr>
-                            <th>Serial</th>
-                            <td>{{ asset.serial }}</td>
-                        </tr>
-                        <tr>
-                            <th>Location</th>
-                            <td>{{ asset.location }}</td>
-                        </tr>
-                        <tr>
-                            <th>Category</th>
-                            <td>{{ asset.category }}</td>
-                        </tr>
-                        <tr>
-                            <th>Specification</th>
-                            <td>{{ asset.specification }}</td>
-                        </tr>
-                        <tr>
-                            <th>Notes</th>
-                            <td>{{ asset.notes }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div class="footer">
-                        <a href="{{ path('asset_index') }}" class="btn btn-primary">Back to the list</a>
-                        <a href="{{ path('asset_edit', { 'id': asset.id }) }}" class="btn btn-info">Edit</a>
-                        <a href="{{ url('asset_delete', {'id': asset.id }) }}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Asset Importance</h4>
+                    </div>
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Impact on revenue</label>
+                                    <input type="text" class="form-control" value="{{ asset.impactRevenue | number_format(2) }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label required" for="appbundle_asset_impactProfitability">Impact on profitability</label>
+                                    <input type="text" class="form-control" value="{{ asset.impactProfitability | number_format(2) }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label required" for="appbundle_asset_impactImage">Impact on image</label>
+                                    <input type="text" class="form-control" value="{{ asset.impactImage | number_format(2) }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label required" for="appbundle_asset_impactImage">Weighted Score</label>
+                                    <input type="text" class="form-control" value="{{ asset.weightedScore | number_format(2) }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Asset Threats</h4>
+                        <p class="category">Threats for {{ asset.name }}</p>
+                    </div>
+                    <div class="content table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Threat</th>
+                                <th>Vulnerability</th>
+                                <th>Risk Score</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for threat in asset.threats %}
+                                <tr>
+                                    <td><a href="{{ path('threat_show', { 'id': threat.id }) }}">{{ threat.id }}</a></td>
+                                    <td>{{ threat.threat }}</td>
+                                    <td>{{ threat.vulnerability }}</td>
+                                    <td>{{ threat.risk }}</td>
+                                    <td>
+                                         <a href="{{ url('threat_show', { 'id': threat.id }) }}" class="btn btn-primary">View</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}

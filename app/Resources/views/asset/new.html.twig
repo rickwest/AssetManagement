@@ -43,6 +43,9 @@
                         <div class="col-md-6">
                             {{ form_row(form.category) }}
                         </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.classification) }}
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -52,6 +55,22 @@
                     <div class="row">
                         <div class="col-md-12">
                             {{ form_row(form.notes) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="title">Asset Importance</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ form_row(form.impactRevenue) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.impactProfitability) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.impactImage) }}
                         </div>
                     </div>
                     <div class="footer">
