@@ -1,4 +1,4 @@
-assetmanagement
+Asset Management
 ===============
 
-A Symfony project created on November 27, 2017, 7:40 pm.
+A simple asset management app for my Information Security Uni module - because it was more fun than doing it on a spreadsheet 😊!
